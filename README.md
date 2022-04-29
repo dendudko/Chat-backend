@@ -1,1 +1,1 @@
-# [fefu.ml](https://fefu.ml)
+# [fefu.ml](http://fefu.ml)
