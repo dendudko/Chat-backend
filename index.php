@@ -40,6 +40,13 @@ function clear_history(){
     print_messages;
 }
 
+function reset_history(){
+    clear_history();
+    $content = json_decode(file_get_contents('reset.json'));
+    file_put_contents('history.json', json_encode($content));
+    print_messages();
+}
+
 $uri = $_SERVER['REQUEST_URI'];
 switch ($uri){
 case '/logout?':
@@ -51,6 +58,12 @@ case '/logout?':
 case '/clear?':
     {
     clear_history();
+    header('Location: '.$url);
+    break;
+    }
+case '/reset?':
+    {
+    reset_history();
     header('Location: '.$url);
     break;
     }
@@ -73,6 +86,10 @@ if (!isset($_COOKIE['login'])):
     <input placeholder="Пароль" name="password" type="password" style="width: 250px; height: 40px"><br>
     <input type="submit" value="Авторизоваться" style="width: 250px; height: 40px">
 </form>
+<form action="/reset" method="GET">
+        <input type="submit" value="RESET MESSAGES" style="width: 250px; height: 40px; 
+        right: 8px; top: 8px; position: absolute; background-color: red; color: white;font-weight: bold;">
+</form>
 <b>История сообщений:</b><br><br>
 
 <?php else:?>
@@ -80,6 +97,10 @@ if (!isset($_COOKIE['login'])):
     <input placeholder="Напишите сообщение, <?php echo($_COOKIE['login']);?>..." name="message" style="width: 250px; height: 40px">
     <input type="submit" value="Отправить" style="width: 250px; height: 40px; 
     margin-left:-5px;">
+</form>
+<form action="/reset" method="GET">
+        <input type="submit" value="RESET MESSAGES" style="width: 250px; height: 40px; 
+        right: 8px; top: 8px; position: absolute; background-color: red; color: white;font-weight: bold;">
 </form>
 <form action="/logout" method="GET">
     <input type="submit" value="Выход" style="width: 250px; height: 40px; margin-top:-16px;">
