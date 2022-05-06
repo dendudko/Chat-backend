@@ -112,7 +112,7 @@ if (!isset($_COOKIE['login'])):
 <b>История сообщений:</b><br><br>
 <?php
 endif;
-if(isset($_GET['message']) AND $_GET['message'] != ''){
+if(isset($_GET['message']) AND $_GET['message'] != '' AND isset($_COOKIE['login'])){
     add_message();
     header('Location: '.$url.'/send?message=');
 }
